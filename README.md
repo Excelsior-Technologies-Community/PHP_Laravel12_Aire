@@ -1,9 +1,11 @@
 # PHP_Laravel12_Aire
 
-![Laravel](https://img.shields.io/badge/Laravel-12-red)
-![PHP](https://img.shields.io/badge/PHP-8%2B-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-Learning%20Project-orange)
+<p align="center">
+<a href="#"><img src="https://img.shields.io/badge/PHP-8%2B-blue" alt="PHP Version"></a>
+<a href="#"><img src="https://img.shields.io/badge/Laravel-12-red" alt="Laravel Version"></a>
+<a href="#"><img src="https://img.shields.io/badge/Aire-Form%20Builder-green" alt="Aire Package"></a>
+<a href="#"><img src="https://img.shields.io/badge/Project-CRUD-orange" alt="CRUD Project"></a>
+</p>
 
 ---
 
