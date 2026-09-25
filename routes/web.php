@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 
-// Redirect the homepage URL to the products list page
+// Redirect homepage to product management
 Route::get('/', function () {
-    return redirect('/products');
+    return redirect()->route('products.index');
 });
 
-// Create all CRUD routes for ProductController (index, create, store, edit, update, destroy)
+// Product CRUD routes
 Route::resource('products', ProductController::class);
