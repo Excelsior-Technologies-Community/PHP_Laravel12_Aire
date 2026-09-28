@@ -3,60 +3,50 @@
 @section('content')
 
 <style>
-    .product-dashboard {
+
+    .products-page {
         max-width: 1250px;
         margin: 0 auto;
         padding: 10px 0 40px;
     }
 
-    /* =========================
-       Dashboard Header
-    ========================= */
+    /*
+    |--------------------------------------------------------------------------
+    | Header
+    |--------------------------------------------------------------------------
+    */
 
-    .dashboard-header {
+    .products-header {
         background: linear-gradient(
             135deg,
-            #111827 0%,
-            #1f2937 55%,
-            #374151 100%
+            #111827,
+            #1f2937,
+            #374151
         );
+
         border-radius: 20px;
-        padding: 30px;
+        padding: 28px;
         color: #fff;
-        margin-bottom: 25px;
+
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         gap: 20px;
-        box-shadow: 0 15px 35px rgba(17, 24, 39, 0.15);
+
+        margin-bottom: 22px;
+
+        box-shadow:
+            0 15px 35px rgba(17,24,39,.15);
     }
 
-    .dashboard-title {
-        display: flex;
-        align-items: center;
-        gap: 17px;
-    }
-
-    .dashboard-icon {
-        width: 58px;
-        height: 58px;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.12);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 26px;
-    }
-
-    .dashboard-header h2 {
-        margin: 0 0 5px;
-        font-size: 27px;
+    .products-header h2 {
+        margin: 0 0 6px;
+        font-size: 28px;
         font-weight: 700;
-        letter-spacing: -0.5px;
     }
 
-    .dashboard-header p {
+    .products-header p {
         margin: 0;
         color: #d1d5db;
         font-size: 14px;
@@ -65,512 +55,481 @@
     .add-product-btn {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 12px 18px;
+        justify-content: center;
+
+        padding: 11px 18px;
+
+        border-radius: 10px;
+
         background: #fff;
         color: #111827;
-        border-radius: 10px;
+
         text-decoration: none;
+
         font-size: 14px;
         font-weight: 700;
-        transition: all 0.2s ease;
-        white-space: nowrap;
     }
 
-    .add-product-btn:hover {
-        color: #111827;
-        transform: translateY(-2px);
-        box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Success
+    |--------------------------------------------------------------------------
+    */
 
-    /* =========================
-       Success Message
-    ========================= */
+    .success-message {
+        padding: 14px 18px;
+        margin-bottom: 20px;
 
-    .success-alert {
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        border-radius: 10px;
+
         background: #ecfdf5;
-        border: 1px solid #bbf7d0;
+        border: 1px solid #a7f3d0;
+
         color: #166534;
-        border-radius: 12px;
-        padding: 13px 16px;
-        margin-bottom: 25px;
-        font-size: 13px;
+
+        font-size: 14px;
         font-weight: 600;
     }
 
-    .success-icon {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: #22c55e;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        flex-shrink: 0;
-    }
-
-    /* =========================
-       Statistics
-    ========================= */
-
-    .stats-title {
-        margin-bottom: 14px;
-        color: #111827;
-        font-size: 16px;
-        font-weight: 700;
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Statistics
+    |--------------------------------------------------------------------------
+    */
 
     .stats-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
         gap: 15px;
-        margin-bottom: 25px;
+
+        margin-bottom: 22px;
     }
 
     .stat-card {
         background: #fff;
+
         border: 1px solid #e5e7eb;
-        border-radius: 16px;
-        padding: 20px;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
-        transition: all 0.2s ease;
+
+        border-radius: 15px;
+
+        padding: 19px;
+
+        box-shadow:
+            0 7px 20px rgba(15,23,42,.05);
     }
 
-    .stat-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-    }
-
-    .stat-card::after {
-        content: "";
-        position: absolute;
-        right: -25px;
-        top: -25px;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: #f3f4f6;
-        opacity: 0.8;
-    }
-
-    .stat-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-        z-index: 2;
-    }
-
-    .stat-title {
+    .stat-label {
         color: #6b7280;
         font-size: 12px;
-        font-weight: 700;
-        margin: 0;
-    }
-
-    .stat-icon {
-        width: 34px;
-        height: 34px;
-        border-radius: 10px;
-        background: #f3f4f6;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        position: relative;
-        z-index: 3;
+        margin-bottom: 7px;
     }
 
     .stat-value {
         color: #111827;
-        font-size: 25px;
+        font-size: 22px;
         font-weight: 800;
-        margin-top: 10px;
-        position: relative;
-        z-index: 2;
-        letter-spacing: -0.5px;
     }
 
-    .stat-description {
+    .stat-small {
         color: #9ca3af;
-        font-size: 10px;
-        margin-top: 5px;
-        position: relative;
-        z-index: 2;
+        font-size: 11px;
+        margin-top: 4px;
     }
 
-    /* =========================
-       Filter Card
-    ========================= */
+    /*
+    |--------------------------------------------------------------------------
+    | Filters
+    |--------------------------------------------------------------------------
+    */
 
     .filter-card {
         background: #fff;
+
         border: 1px solid #e5e7eb;
-        border-radius: 18px;
-        padding: 23px;
-        margin-bottom: 25px;
-        box-shadow: 0 7px 22px rgba(15, 23, 42, 0.05);
+
+        border-radius: 17px;
+
+        padding: 22px;
+
+        margin-bottom: 22px;
+
+        box-shadow:
+            0 7px 20px rgba(15,23,42,.05);
     }
 
-    .filter-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .filter-header h3 {
-        margin: 0 0 4px;
-        font-size: 17px;
-        color: #111827;
-    }
-
-    .filter-header p {
-        margin: 0;
-        color: #6b7280;
-        font-size: 12px;
-    }
-
-    .filter-badge {
-        background: #f3f4f6;
-        color: #4b5563;
-        padding: 7px 10px;
-        border-radius: 8px;
-        font-size: 10px;
+    .filter-title {
+        font-size: 16px;
         font-weight: 700;
+
+        color: #111827;
+
+        margin-bottom: 17px;
     }
 
     .filter-grid {
         display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-        gap: 13px;
+
+        grid-template-columns:
+            2fr 1fr 1fr 1fr 1fr;
+
+        gap: 12px;
     }
 
-    .filter-field label {
-        display: block;
-        margin-bottom: 7px;
-        color: #374151;
-        font-size: 11px;
-        font-weight: 700;
-    }
-
-    .filter-field input,
-    .filter-field select {
+    .filter-grid input,
+    .filter-grid select {
         width: 100%;
-        height: 42px;
-        padding: 0 12px;
-        border: 1px solid #d1d5db;
+
+        padding: 10px 12px;
+
+        border:
+            1px solid #d1d5db;
+
         border-radius: 9px;
+
+        box-sizing: border-box;
+
         background: #fff;
-        color: #111827;
-        font-size: 12px;
+
+        font-size: 13px;
+    }
+
+    .filter-grid input:focus,
+    .filter-grid select:focus {
         outline: none;
-        box-sizing: border-box;
-        transition: all 0.2s ease;
-    }
 
-    .filter-field input:focus,
-    .filter-field select:focus {
         border-color: #6366f1;
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10);
+
+        box-shadow:
+            0 0 0 3px
+            rgba(99,102,241,.10);
     }
 
-    .featured-filter {
+    .filter-checkboxes {
         display: flex;
-        align-items: flex-end;
-        padding-bottom: 1px;
+
+        flex-wrap: wrap;
+
+        gap: 16px;
+
+        margin-top: 15px;
     }
 
-    .featured-filter label {
-        width: 100%;
-        min-height: 42px;
+    .filter-checkbox {
         display: flex;
+
         align-items: center;
-        gap: 8px;
-        padding: 0 12px;
-        border: 1px solid #d1d5db;
-        border-radius: 9px;
-        background: #fff;
+
+        gap: 7px;
+
+        font-size: 13px;
+
         color: #374151;
-        font-size: 11px;
-        font-weight: 600;
-        cursor: pointer;
-        box-sizing: border-box;
     }
 
-    .featured-filter input {
-        width: 16px;
-        height: 16px;
+    .filter-checkbox input {
         accent-color: #6366f1;
-        cursor: pointer;
     }
 
     .filter-actions {
         display: flex;
+
         gap: 9px;
-        margin-top: 17px;
+
+        flex-wrap: wrap;
+
+        margin-top: 18px;
     }
 
-    .btn-filter {
-        border: none;
+    .btn {
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        padding: 10px 15px;
+
         border-radius: 9px;
-        padding: 10px 17px;
-        background: #111827;
-        color: #fff;
-        font-size: 12px;
-        font-weight: 700;
-        cursor: pointer;
+
         text-decoration: none;
+
+        border: none;
+
+        cursor: pointer;
+
+        font-size: 13px;
+
+        font-weight: 700;
     }
 
-    .btn-filter:hover {
-        background: #1f2937;
+    .btn-search {
+        background: #111827;
         color: #fff;
     }
 
     .btn-reset {
-        border: 1px solid #d1d5db;
-        border-radius: 9px;
-        padding: 10px 17px;
-        background: #fff;
+        background: #f3f4f6;
         color: #374151;
-        font-size: 12px;
-        font-weight: 600;
-        text-decoration: none;
     }
 
-    .btn-reset:hover {
+    .btn-export {
+        background: #166534;
+        color: #fff;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Filtered Summary
+    |--------------------------------------------------------------------------
+    */
+
+    .filtered-summary {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 15px;
+
+        margin-bottom: 22px;
+    }
+
+    .summary-card {
         background: #f9fafb;
-        color: #111827;
+
+        border: 1px solid #e5e7eb;
+
+        border-radius: 13px;
+
+        padding: 16px;
     }
 
-    /* =========================
-       Table
-    ========================= */
+    .summary-card span {
+        display: block;
+
+        color: #6b7280;
+
+        font-size: 12px;
+
+        margin-bottom: 5px;
+    }
+
+    .summary-card strong {
+        color: #111827;
+
+        font-size: 19px;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Bulk Actions
+    |--------------------------------------------------------------------------
+    */
+
+    .bulk-bar {
+        background: #f9fafb;
+
+        border:
+            1px solid #e5e7eb;
+
+        border-radius: 12px;
+
+        padding: 13px;
+
+        margin-bottom: 15px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        flex-wrap: wrap;
+    }
+
+    .bulk-bar select {
+        padding: 8px 10px;
+
+        border:
+            1px solid #d1d5db;
+
+        border-radius: 8px;
+    }
+
+    .bulk-delete {
+        background: #dc2626;
+        color: #fff;
+    }
+
+    .bulk-status {
+        background: #4f46e5;
+        color: #fff;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Table
+    |--------------------------------------------------------------------------
+    */
 
     .table-card {
         background: #fff;
-        border: 1px solid #e5e7eb;
-        border-radius: 18px;
+
+        border:
+            1px solid #e5e7eb;
+
+        border-radius: 17px;
+
         overflow: hidden;
-        box-shadow: 0 7px 22px rgba(15, 23, 42, 0.05);
+
+        box-shadow:
+            0 7px 20px rgba(15,23,42,.05);
     }
 
-    .table-header {
-        padding: 20px 23px;
-        border-bottom: 1px solid #eef0f3;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .table-header h3 {
-        margin: 0;
-        color: #111827;
-        font-size: 17px;
-    }
-
-    .table-count {
-        color: #6b7280;
-        background: #f9fafb;
-        border: 1px solid #e5e7eb;
-        border-radius: 8px;
-        padding: 6px 9px;
-        font-size: 10px;
-        font-weight: 700;
-    }
-
-    .table-wrapper {
+    .products-table {
         width: 100%;
-        overflow-x: auto;
-    }
 
-    table {
-        width: 100%;
         border-collapse: collapse;
-        min-width: 900px;
     }
 
-    thead {
+    .products-table th {
+        padding: 14px;
+
         background: #f9fafb;
-    }
 
-    th {
-        padding: 13px 16px;
-        text-align: left;
         color: #6b7280;
-        font-size: 10px;
+
+        font-size: 11px;
+
         text-transform: uppercase;
-        letter-spacing: 0.4px;
-        font-weight: 800;
-        border-bottom: 1px solid #eef0f3;
+
+        letter-spacing: .4px;
+
+        text-align: left;
+
+        border-bottom:
+            1px solid #e5e7eb;
     }
 
-    td {
-        padding: 15px 16px;
+    .products-table td {
+        padding: 14px;
+
         color: #374151;
-        font-size: 12px;
-        border-bottom: 1px solid #f0f1f3;
+
+        font-size: 13px;
+
+        border-bottom:
+            1px solid #f0f1f3;
+
         vertical-align: middle;
     }
 
-    tbody tr {
-        transition: background 0.15s ease;
-    }
-
-    tbody tr:hover {
-        background: #fafafa;
-    }
-
-    tbody tr:last-child td {
+    .products-table tr:last-child td {
         border-bottom: none;
-    }
-
-    .product-id {
-        color: #9ca3af;
-        font-size: 11px;
-        font-weight: 700;
     }
 
     .product-name {
         color: #111827;
-        font-size: 13px;
+
         font-weight: 700;
-        display: block;
-        margin-bottom: 4px;
     }
 
-    .description {
-        display: block;
-        color: #9ca3af;
-        font-size: 10px;
-        max-width: 240px;
-    }
-
-    .category-badge {
+    .product-category {
         display: inline-flex;
+
         padding: 5px 8px;
+
         border-radius: 7px;
+
         background: #f3f4f6;
-        color: #4b5563;
-        font-size: 10px;
-        font-weight: 700;
+
+        font-size: 11px;
+
+        font-weight: 600;
     }
 
-    .price {
-        color: #111827;
-        font-weight: 800;
-        white-space: nowrap;
-    }
-
-    .stock-number {
-        font-weight: 700;
-        color: #374151;
-    }
-
-    /* =========================
-       Status Badges
-    ========================= */
-
-    .badge {
+    .status {
         display: inline-flex;
+
         align-items: center;
-        gap: 5px;
-        padding: 5px 9px;
-        border-radius: 20px;
-        font-size: 10px;
+
+        gap: 6px;
+
+        padding: 5px 8px;
+
+        border-radius: 7px;
+
+        font-size: 11px;
+
         font-weight: 700;
-        white-space: nowrap;
     }
 
-    .badge-success {
+    .status.active {
         background: #ecfdf5;
         color: #166534;
     }
 
-    .badge-success::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: #22c55e;
+    .status.inactive {
+        background: #f3f4f6;
+        color: #4b5563;
     }
 
-    .badge-warning {
-        background: #fffbeb;
-        color: #92400e;
+    .stock-low {
+        color: #d97706;
+        font-weight: 700;
     }
 
-    .badge-warning::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: #f59e0b;
+    .stock-out {
+        color: #dc2626;
+        font-weight: 700;
     }
 
-    .badge-danger {
-        background: #fef2f2;
-        color: #991b1b;
+    .featured {
+        color: #ca8a04;
+        font-weight: 700;
     }
 
-    .badge-danger::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: #ef4444;
-    }
-
-    .badge-featured {
-        background: #fff7ed;
-        color: #c2410c;
-    }
-
-    /* =========================
-       Action Buttons
-    ========================= */
-
-    .actions {
-        white-space: nowrap;
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Action Buttons
+    |--------------------------------------------------------------------------
+    */
 
     .action-group {
         display: flex;
-        align-items: center;
+
         gap: 6px;
+
+        flex-wrap: wrap;
     }
 
     .action-btn {
         display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 7px 10px;
+
+        padding: 6px 9px;
+
         border-radius: 7px;
-        font-size: 10px;
-        font-weight: 700;
+
         text-decoration: none;
+
         border: none;
+
         cursor: pointer;
-        transition: all 0.15s ease;
+
+        font-size: 11px;
+
+        font-weight: 700;
     }
 
     .edit-btn {
-        background: #eff6ff;
-        color: #1d4ed8;
+        background: #eef2ff;
+        color: #4338ca;
     }
 
-    .edit-btn:hover {
-        background: #dbeafe;
-        color: #1d4ed8;
+    .duplicate-btn {
+        background: #ecfeff;
+        color: #0e7490;
     }
 
     .delete-btn {
@@ -578,194 +537,123 @@
         color: #dc2626;
     }
 
-    .delete-btn:hover {
-        background: #fee2e2;
-        color: #dc2626;
-    }
-
-    /* =========================
-       Empty State
-    ========================= */
-
-    .empty-state {
-        padding: 55px 20px !important;
-        text-align: center !important;
-        color: #9ca3af !important;
-    }
-
-    .empty-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 14px;
-        background: #f3f4f6;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 12px;
-        font-size: 20px;
-    }
-
-    .empty-state strong {
-        display: block;
-        color: #374151;
-        font-size: 14px;
-        margin-bottom: 4px;
-    }
-
-    .empty-state span {
-        font-size: 11px;
-    }
-
-    /* =========================
-       Pagination
-    ========================= */
+    /*
+    |--------------------------------------------------------------------------
+    | Pagination
+    |--------------------------------------------------------------------------
+    */
 
     .pagination-wrapper {
-        padding: 18px 23px;
-        border-top: 1px solid #eef0f3;
+        padding: 20px;
+
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 15px;
+
+        justify-content: center;
     }
 
-    .pagination-info {
-        color: #9ca3af;
-        font-size: 10px;
-    }
-
-    .pagination nav {
+    .pagination-wrapper nav {
         display: flex;
-        justify-content: flex-end;
+        gap: 5px;
     }
 
-    .pagination nav > div:first-child {
-        display: none;
-    }
-
-    .pagination nav > div:last-child {
-        display: block;
-    }
-
-    .pagination nav a,
-    .pagination nav span {
+    .pagination-wrapper a,
+    .pagination-wrapper span {
         display: inline-flex;
+
         align-items: center;
         justify-content: center;
-        min-width: 30px;
-        height: 30px;
-        margin-left: 4px;
-        padding: 0 8px;
-        border: 1px solid #e5e7eb;
+
+        min-width: 34px;
+        height: 34px;
+
+        padding: 0 9px;
+
         border-radius: 7px;
-        background: #fff;
-        color: #4b5563;
+
         text-decoration: none;
-        font-size: 10px;
+
+        font-size: 12px;
+
+        border:
+            1px solid #e5e7eb;
+
+        color: #374151;
+
+        background: #fff;
     }
 
-    .pagination nav a:hover {
-        background: #f3f4f6;
-        color: #111827;
-    }
-
-    .pagination nav span[aria-current="page"] {
+    .pagination-wrapper .active span {
         background: #111827;
-        border-color: #111827;
         color: #fff;
+        border-color: #111827;
     }
 
-    /* =========================
-       Responsive
-    ========================= */
+    /*
+    |--------------------------------------------------------------------------
+    | Empty
+    |--------------------------------------------------------------------------
+    */
 
-    @media (max-width: 1050px) {
+    .empty-state {
+        padding: 50px 20px;
+
+        text-align: center;
+
+        color: #6b7280;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Responsive
+    |--------------------------------------------------------------------------
+    */
+
+    @media (max-width: 1000px) {
 
         .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns:
+                repeat(2, 1fr);
         }
 
         .filter-grid {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns:
+                repeat(2, 1fr);
         }
 
-        .filter-field:first-child {
-            grid-column: span 2;
+        .products-table {
+            min-width: 1000px;
+        }
+
+        .table-card {
+            overflow-x: auto;
         }
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 650px) {
 
-        .product-dashboard {
-            padding: 5px 0 25px;
-        }
-
-        .dashboard-header {
-            padding: 22px;
+        .products-header {
             flex-direction: column;
             align-items: flex-start;
         }
 
         .add-product-btn {
             width: 100%;
-            justify-content: center;
         }
 
-        .stats-grid {
-            grid-template-columns: 1fr;
-        }
-
+        .stats-grid,
+        .filtered-summary,
         .filter-grid {
             grid-template-columns: 1fr;
         }
-
-        .filter-field:first-child {
-            grid-column: span 1;
-        }
-
-        .filter-header {
-            align-items: flex-start;
-        }
-
-        .filter-badge {
-            display: none;
-        }
-
-        .filter-actions {
-            flex-direction: column;
-        }
-
-        .btn-filter,
-        .btn-reset {
-            width: 100%;
-            text-align: center;
-        }
-
-        .table-header {
-            padding: 18px;
-        }
-
-        .pagination-wrapper {
-            flex-direction: column;
-            align-items: flex-start;
-        }
     }
+
 </style>
 
-<div class="product-dashboard">
 
+<div class="products-page">
 
-{{-- =========================
-     Dashboard Header
-========================== --}}
-
-<div class="dashboard-header">
-
-    <div class="dashboard-title">
-
-        <div class="dashboard-icon">
-            ▦
-        </div>
+    {{-- Header --}}
+    <div class="products-header">
 
         <div>
 
@@ -774,348 +662,194 @@
             </h2>
 
             <p>
-                Manage products, inventory, availability and featured items.
+                Manage products, inventory, status and pricing.
             </p>
 
         </div>
 
-    </div>
-
-
-    <a
-        href="{{ route('products.create') }}"
-        class="add-product-btn"
-    >
-        <span>+</span>
-        Add Product
-    </a>
-
-</div>
-
-
-{{-- =========================
-     Success Message
-========================== --}}
-
-@if(session('success'))
-
-    <div class="success-alert">
-
-        <div class="success-icon">
-            ✓
-        </div>
-
-        {{ session('success') }}
-
-    </div>
-
-@endif
-
-
-{{-- =========================
-     Statistics
-========================== --}}
-
-<div class="stats-title">
-    Product Overview
-</div>
-
-
-<div class="stats-grid">
-
-    {{-- Total Products --}}
-    <div class="stat-card">
-
-        <div class="stat-top">
-
-            <div class="stat-title">
-                TOTAL PRODUCTS
-            </div>
-
-            <div class="stat-icon">
-                📦
-            </div>
-
-        </div>
-
-        <div class="stat-value">
-            {{ $totalProducts }}
-        </div>
-
-        <div class="stat-description">
-            Products in catalog
-        </div>
+        <a
+            href="{{ route('products.create') }}"
+            class="add-product-btn"
+        >
+            + Add Product
+        </a>
 
     </div>
 
 
-    {{-- Inventory Value --}}
-    <div class="stat-card">
+    {{-- Success --}}
+    @if(session('success'))
 
-        <div class="stat-top">
-
-            <div class="stat-title">
-                INVENTORY VALUE
-            </div>
-
-            <div class="stat-icon">
-                ₹
-            </div>
-
+        <div class="success-message">
+            {{ session('success') }}
         </div>
 
-        <div class="stat-value">
-            ₹{{ number_format($totalInventoryValue ?? 0) }}
-        </div>
-
-        <div class="stat-description">
-            Total stock value
-        </div>
-
-    </div>
+    @endif
 
 
-    {{-- Average Price --}}
-    <div class="stat-card">
+    {{-- Statistics --}}
+    <div class="stats-grid">
 
-        <div class="stat-top">
+        <div class="stat-card">
 
-            <div class="stat-title">
-                AVERAGE PRICE
+            <div class="stat-label">
+                Total Products
             </div>
 
-            <div class="stat-icon">
-                ≈
+            <div class="stat-value">
+                {{ number_format($totalProducts) }}
+            </div>
+
+            <div class="stat-small">
+                All products
             </div>
 
         </div>
 
-        <div class="stat-value">
-            ₹{{ number_format($averagePrice ?? 0, 2) }}
-        </div>
 
-        <div class="stat-description">
-            Average product price
-        </div>
+        <div class="stat-card">
 
-    </div>
-
-
-    {{-- Highest Price --}}
-    <div class="stat-card">
-
-        <div class="stat-top">
-
-            <div class="stat-title">
-                HIGHEST PRICE
+            <div class="stat-label">
+                Inventory Value
             </div>
 
-            <div class="stat-icon">
-                ↑
+            <div class="stat-value">
+                ₹{{ number_format($totalInventoryValue) }}
+            </div>
+
+            <div class="stat-small">
+                Price × stock
             </div>
 
         </div>
 
-        <div class="stat-value">
-            ₹{{ number_format($highestPrice ?? 0) }}
-        </div>
 
-        <div class="stat-description">
-            Most expensive product
-        </div>
+        <div class="stat-card">
 
-    </div>
-
-
-    {{-- Lowest Price --}}
-    <div class="stat-card">
-
-        <div class="stat-top">
-
-            <div class="stat-title">
-                LOWEST PRICE
+            <div class="stat-label">
+                Average Price
             </div>
 
-            <div class="stat-icon">
-                ↓
+            <div class="stat-value">
+                ₹{{ number_format($averagePrice ?? 0) }}
+            </div>
+
+            <div class="stat-small">
+                Average product price
             </div>
 
         </div>
 
-        <div class="stat-value">
-            ₹{{ number_format($lowestPrice ?? 0) }}
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Featured Products
+            </div>
+
+            <div class="stat-value">
+                {{ number_format($featuredProducts) }}
+            </div>
+
+            <div class="stat-small">
+                Featured catalog items
+            </div>
+
         </div>
 
-        <div class="stat-description">
-            Lowest product price
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Active Products
+            </div>
+
+            <div class="stat-value">
+                {{ number_format($activeProducts) }}
+            </div>
+
+            <div class="stat-small">
+                Currently active
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Inactive Products
+            </div>
+
+            <div class="stat-value">
+                {{ number_format($inactiveProducts) }}
+            </div>
+
+            <div class="stat-small">
+                Currently inactive
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Low Stock
+            </div>
+
+            <div class="stat-value">
+                {{ number_format($lowStockProducts) }}
+            </div>
+
+            <div class="stat-small">
+                1–5 units remaining
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Out Of Stock
+            </div>
+
+            <div class="stat-value">
+                {{ number_format($outOfStockProducts) }}
+            </div>
+
+            <div class="stat-small">
+                Zero inventory
+            </div>
+
         </div>
 
     </div>
 
 
-    {{-- Featured --}}
-    <div class="stat-card">
+    {{-- Filters --}}
+    <div class="filter-card">
 
-        <div class="stat-top">
-
-            <div class="stat-title">
-                FEATURED PRODUCTS
-            </div>
-
-            <div class="stat-icon">
-                ★
-            </div>
-
+        <div class="filter-title">
+            Search & Advanced Filters
         </div>
 
-        <div class="stat-value">
-            {{ $featuredProducts }}
-        </div>
 
-        <div class="stat-description">
-            Featured catalog items
-        </div>
+        <form
+            method="GET"
+            action="{{ route('products.index') }}"
+        >
 
-    </div>
-
-
-    {{-- Active --}}
-    <div class="stat-card">
-
-        <div class="stat-top">
-
-            <div class="stat-title">
-                ACTIVE PRODUCTS
-            </div>
-
-            <div class="stat-icon">
-                ●
-            </div>
-
-        </div>
-
-        <div class="stat-value">
-            {{ $activeProducts }}
-        </div>
-
-        <div class="stat-description">
-            Currently available
-        </div>
-
-    </div>
-
-
-    {{-- Inactive --}}
-    <div class="stat-card">
-
-        <div class="stat-top">
-
-            <div class="stat-title">
-                INACTIVE PRODUCTS
-            </div>
-
-            <div class="stat-icon">
-                ○
-            </div>
-
-        </div>
-
-        <div class="stat-value">
-            {{ $inactiveProducts }}
-        </div>
-
-        <div class="stat-description">
-            Currently unavailable
-        </div>
-
-    </div>
-
-
-    {{-- Out Of Stock --}}
-    <div class="stat-card">
-
-        <div class="stat-top">
-
-            <div class="stat-title">
-                OUT OF STOCK
-            </div>
-
-            <div class="stat-icon">
-                !
-            </div>
-
-        </div>
-
-        <div class="stat-value">
-            {{ $outOfStockProducts }}
-        </div>
-
-        <div class="stat-description">
-            Products requiring restock
-        </div>
-
-    </div>
-
-</div>
-
-
-{{-- =========================
-     Search & Filters
-========================== --}}
-
-<div class="filter-card">
-
-    <div class="filter-header">
-
-        <div>
-
-            <h3>
-                Search & Filter Products
-            </h3>
-
-            <p>
-                Quickly find products using multiple filter options.
-            </p>
-
-        </div>
-
-        <span class="filter-badge">
-            ADVANCED FILTERS
-        </span>
-
-    </div>
-
-
-    <form
-        method="GET"
-        action="{{ route('products.index') }}"
-    >
-
-        <div class="filter-grid">
-
-            {{-- Search --}}
-            <div class="filter-field">
-
-                <label>
-                    Search Products
-                </label>
+            <div class="filter-grid">
 
                 <input
                     type="text"
                     name="search"
                     value="{{ request('search') }}"
-                    placeholder="Search by name, description or category..."
+                    placeholder="Search name, category or description..."
                 >
 
-            </div>
-
-
-            {{-- Category --}}
-            <div class="filter-field">
-
-                <label>
-                    Category
-                </label>
 
                 <select name="category">
 
@@ -1136,15 +870,6 @@
 
                 </select>
 
-            </div>
-
-
-            {{-- Status --}}
-            <div class="filter-field">
-
-                <label>
-                    Status
-                </label>
 
                 <select name="status">
 
@@ -1168,49 +893,30 @@
 
                 </select>
 
-            </div>
-
-
-            {{-- Minimum Price --}}
-            <div class="filter-field">
-
-                <label>
-                    Minimum Price
-                </label>
 
                 <input
                     type="number"
                     name="min_price"
                     value="{{ request('min_price') }}"
                     min="0"
-                    placeholder="₹ Minimum"
+                    placeholder="Min price"
                 >
 
-            </div>
-
-
-            {{-- Maximum Price --}}
-            <div class="filter-field">
-
-                <label>
-                    Maximum Price
-                </label>
 
                 <input
                     type="number"
                     name="max_price"
                     value="{{ request('max_price') }}"
                     min="0"
-                    placeholder="₹ Maximum"
+                    placeholder="Max price"
                 >
 
             </div>
 
 
-            {{-- Featured --}}
-            <div class="featured-filter">
+            <div class="filter-checkboxes">
 
-                <label>
+                <label class="filter-checkbox">
 
                     <input
                         type="checkbox"
@@ -1219,31 +925,551 @@
                         {{ request('featured') ? 'checked' : '' }}
                     >
 
-                    Featured Only
+                    Featured only
+
+                </label>
+
+
+                <label class="filter-checkbox">
+
+                    <input
+                        type="checkbox"
+                        name="low_stock"
+                        value="1"
+                        {{ request('low_stock') ? 'checked' : '' }}
+                    >
+
+                    Low stock
+
+                </label>
+
+
+                <label class="filter-checkbox">
+
+                    <input
+                        type="checkbox"
+                        name="out_of_stock"
+                        value="1"
+                        {{ request('out_of_stock') ? 'checked' : '' }}
+                    >
+
+                    Out of stock
 
                 </label>
 
             </div>
 
+
+            <div
+                class="filter-actions"
+            >
+
+                <button
+                    type="submit"
+                    class="btn btn-search"
+                >
+                    Apply Filters
+                </button>
+
+
+                <a
+                    href="{{ route('products.index') }}"
+                    class="btn btn-reset"
+                >
+                    Reset
+                </a>
+
+
+                <a
+                    href="{{ route('products.export', request()->query()) }}"
+                    class="btn btn-export"
+                >
+                    Export CSV
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    {{-- Sorting --}}
+    <div class="filter-card">
+
+        <div class="filter-title">
+            Sort Products
         </div>
 
 
-        <div class="filter-actions">
+        <form
+            method="GET"
+            action="{{ route('products.index') }}"
+        >
+
+            @foreach(request()->except(['sort', 'direction', 'page']) as $key => $value)
+
+                @if(is_array($value))
+
+                    @foreach($value as $item)
+
+                        <input
+                            type="hidden"
+                            name="{{ $key }}[]"
+                            value="{{ $item }}"
+                        >
+
+                    @endforeach
+
+                @else
+
+                    <input
+                        type="hidden"
+                        name="{{ $key }}"
+                        value="{{ $value }}"
+                    >
+
+                @endif
+
+            @endforeach
+
+
+            <div class="filter-grid">
+
+                <select name="sort">
+
+                    <option
+                        value="created_at"
+                        {{ $sort == 'created_at' ? 'selected' : '' }}
+                    >
+                        Date
+                    </option>
+
+                    <option
+                        value="name"
+                        {{ $sort == 'name' ? 'selected' : '' }}
+                    >
+                        Product Name
+                    </option>
+
+                    <option
+                        value="price"
+                        {{ $sort == 'price' ? 'selected' : '' }}
+                    >
+                        Price
+                    </option>
+
+                    <option
+                        value="stock"
+                        {{ $sort == 'stock' ? 'selected' : '' }}
+                    >
+                        Stock
+                    </option>
+
+                    <option
+                        value="id"
+                        {{ $sort == 'id' ? 'selected' : '' }}
+                    >
+                        Product ID
+                    </option>
+
+                </select>
+
+
+                <select name="direction">
+
+                    <option
+                        value="desc"
+                        {{ $direction == 'desc' ? 'selected' : '' }}
+                    >
+                        Descending
+                    </option>
+
+                    <option
+                        value="asc"
+                        {{ $direction == 'asc' ? 'selected' : '' }}
+                    >
+                        Ascending
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-search"
+                >
+                    Apply Sorting
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    {{-- Filtered Summary --}}
+    <div class="filtered-summary">
+
+        <div class="summary-card">
+
+            <span>
+                Filtered Products
+            </span>
+
+            <strong>
+                {{ number_format($filteredProductsCount) }}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span>
+                Filtered Inventory Value
+            </span>
+
+            <strong>
+                ₹{{ number_format($filteredInventoryValue) }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    {{-- Bulk Actions --}}
+    <form
+        id="bulkForm"
+        method="POST"
+    >
+
+        @csrf
+
+
+        <div class="bulk-bar">
+
+            <strong>
+                Bulk Actions:
+            </strong>
+
 
             <button
-                type="submit"
-                class="btn-filter"
+                type="button"
+                class="btn bulk-status"
+                onclick="submitBulkStatus('active')"
             >
-                Search & Filter
+                Activate Selected
             </button>
 
 
-            <a
-                href="{{ route('products.index') }}"
-                class="btn-reset"
+            <button
+                type="button"
+                class="btn bulk-status"
+                onclick="submitBulkStatus('inactive')"
             >
-                Reset Filters
-            </a>
+                Deactivate Selected
+            </button>
+
+
+            <button
+                type="button"
+                class="btn bulk-delete"
+                onclick="submitBulkDelete()"
+            >
+                Delete Selected
+            </button>
+
+        </div>
+
+
+        {{-- Product Table --}}
+        <div class="table-card">
+
+            @if($products->count())
+
+                <table class="products-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                <input
+                                    type="checkbox"
+                                    id="selectAll"
+                                >
+                            </th>
+
+                            <th>
+                                ID
+                            </th>
+
+                            <th>
+                                Product
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            <th>
+                                Price
+                            </th>
+
+                            <th>
+                                Stock
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Featured
+                            </th>
+
+                            <th>
+                                Inventory Value
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @foreach($products as $product)
+
+                            <tr>
+
+                                <td>
+
+                                    <input
+                                        type="checkbox"
+                                        name="product_ids[]"
+                                        value="{{ $product->id }}"
+                                        class="product-checkbox"
+                                    >
+
+                                </td>
+
+
+                                <td>
+                                    #{{ $product->id }}
+                                </td>
+
+
+                                <td>
+
+                                    <div class="product-name">
+                                        {{ $product->name }}
+                                    </div>
+
+                                    @if($product->description)
+
+                                        <small>
+                                            {{ \Illuminate\Support\Str::limit(
+                                                $product->description,
+                                                45
+                                            ) }}
+                                        </small>
+
+                                    @endif
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="product-category">
+                                        {{ $product->category }}
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    ₹{{ number_format($product->price) }}
+
+                                </td>
+
+
+                                <td>
+
+                                    @if($product->stock == 0)
+
+                                        <span class="stock-out">
+                                            Out of Stock
+                                        </span>
+
+                                    @elseif($product->stock <= 5)
+
+                                        <span class="stock-low">
+                                            {{ $product->stock }}
+                                            Low
+                                        </span>
+
+                                    @else
+
+                                        {{ number_format($product->stock) }}
+
+                                    @endif
+
+                                </td>
+
+
+                                <td>
+
+                                    <span
+                                        class="status {{ $product->status }}"
+                                    >
+
+                                        ●
+
+                                        {{ ucfirst($product->status) }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    @if($product->is_featured)
+
+                                        <span class="featured">
+                                            ★ Featured
+                                        </span>
+
+                                    @else
+
+                                        <span>
+                                            —
+                                        </span>
+
+                                    @endif
+
+                                </td>
+
+
+                                <td>
+
+                                    ₹{{ number_format(
+                                        $product->price *
+                                        $product->stock
+                                    ) }}
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="action-group">
+
+                                        <a
+                                            href="{{ route(
+                                                'products.edit',
+                                                $product
+                                            ) }}"
+                                            class="action-btn edit-btn"
+                                        >
+                                            Edit
+                                        </a>
+
+
+                                        <form
+                                            method="POST"
+                                            action="{{ route(
+                                                'products.duplicate',
+                                                $product
+                                            ) }}"
+                                            style="display:inline"
+                                        >
+
+                                            @csrf
+
+                                            <button
+                                                type="submit"
+                                                class="action-btn duplicate-btn"
+                                                onclick="return confirm(
+                                                    'Duplicate this product?'
+                                                )"
+                                            >
+                                                Duplicate
+                                            </button>
+
+                                        </form>
+
+
+                                        <form
+                                            method="POST"
+                                            action="{{ route(
+                                                'products.destroy',
+                                                $product
+                                            ) }}"
+                                            style="display:inline"
+                                        >
+
+                                            @csrf
+
+                                            @method('DELETE')
+
+                                            <button
+                                                type="submit"
+                                                class="action-btn delete-btn"
+                                                onclick="return confirm(
+                                                    'Are you sure you want to delete this product?'
+                                                )"
+                                            >
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        @endforeach
+
+                    </tbody>
+
+                </table>
+
+
+                {{-- Numeric Pagination --}}
+                <div class="pagination-wrapper">
+
+                    {{ $products->onEachSide(1)->links('pagination::simple-tailwind') }}
+
+                </div>
+
+            @else
+
+                <div class="empty-state">
+
+                    <h3>
+                        No Products Found
+                    </h3>
+
+                    <p>
+                        Try changing your search or filters.
+                    </p>
+
+                </div>
+
+            @endif
 
         </div>
 
@@ -1252,308 +1478,120 @@
 </div>
 
 
-{{-- =========================
-     Product Table
-========================== --}}
+<script>
 
-<div class="table-card">
+    /*
+    |--------------------------------------------------------------------------
+    | Select All
+    |--------------------------------------------------------------------------
+    */
 
-    <div class="table-header">
+    const selectAll =
+        document.getElementById('selectAll');
 
-        <h3>
-            Product List
-        </h3>
+    if (selectAll) {
 
+        selectAll.addEventListener(
+            'change',
+            function () {
 
-        <span class="table-count">
+                document
+                    .querySelectorAll('.product-checkbox')
+                    .forEach(function (checkbox) {
 
-            Showing
-            {{ $products->firstItem() ?? 0 }}
-            -
-            {{ $products->lastItem() ?? 0 }}
-            of
-            {{ $products->total() }}
+                        checkbox.checked =
+                            selectAll.checked;
 
-        </span>
+                    });
 
-    </div>
+            }
+        );
 
+    }
 
-    <div class="table-wrapper">
 
-        <table>
+    /*
+    |--------------------------------------------------------------------------
+    | Bulk Delete
+    |--------------------------------------------------------------------------
+    */
 
-            <thead>
+    function submitBulkDelete()
+    {
+        const selected =
+            document.querySelectorAll(
+                '.product-checkbox:checked'
+            );
 
-            <tr>
+        if (selected.length === 0) {
 
-                <th>
-                    ID
-                </th>
+            alert(
+                'Please select at least one product.'
+            );
 
-                <th>
-                    Product
-                </th>
+            return;
+        }
 
-                <th>
-                    Category
-                </th>
+        if (!confirm(
+            'Are you sure you want to delete the selected products?'
+        )) {
 
-                <th>
-                    Price
-                </th>
+            return;
+        }
 
-                <th>
-                    Stock
-                </th>
+        const form =
+            document.getElementById('bulkForm');
 
-                <th>
-                    Status
-                </th>
+        form.action =
+            "{{ route('products.bulkDestroy') }}";
 
-                <th>
-                    Featured
-                </th>
+        form.submit();
+    }
 
-                <th>
-                    Actions
-                </th>
 
-            </tr>
+    /*
+    |--------------------------------------------------------------------------
+    | Bulk Status
+    |--------------------------------------------------------------------------
+    */
 
-            </thead>
+    function submitBulkStatus(status)
+    {
+        const selected =
+            document.querySelectorAll(
+                '.product-checkbox:checked'
+            );
 
+        if (selected.length === 0) {
 
-            <tbody>
+            alert(
+                'Please select at least one product.'
+            );
 
-            @forelse($products as $product)
+            return;
+        }
 
-                <tr>
+        const form =
+            document.getElementById('bulkForm');
 
-                    {{-- ID --}}
-                    <td>
+        form.action =
+            "{{ route('products.bulkStatus') }}";
 
-                        <span class="product-id">
-                            #{{ $product->id }}
-                        </span>
 
-                    </td>
+        const statusInput =
+            document.createElement('input');
 
+        statusInput.type = 'hidden';
 
-                    {{-- Product --}}
-                    <td>
+        statusInput.name = 'status';
 
-                        <span class="product-name">
-                            {{ $product->name }}
-                        </span>
+        statusInput.value = status;
 
+        form.appendChild(statusInput);
 
-                        @if($product->description)
+        form.submit();
+    }
 
-                            <span class="description">
-
-                                {{ \Illuminate\Support\Str::limit(
-                                    $product->description,
-                                    55
-                                ) }}
-
-                            </span>
-
-                        @endif
-
-                    </td>
-
-
-                    {{-- Category --}}
-                    <td>
-
-                        <span class="category-badge">
-
-                            {{ $product->category ?? 'Other' }}
-
-                        </span>
-
-                    </td>
-
-
-                    {{-- Price --}}
-                    <td>
-
-                        <span class="price">
-                            ₹{{ number_format($product->price) }}
-                        </span>
-
-                    </td>
-
-
-                    {{-- Stock --}}
-                    <td>
-
-                        @if($product->stock > 0)
-
-                            <span class="stock-number">
-                                {{ number_format($product->stock) }}
-                            </span>
-
-                        @else
-
-                            <span class="badge badge-danger">
-                                Out of Stock
-                            </span>
-
-                        @endif
-
-                    </td>
-
-
-                    {{-- Status --}}
-                    <td>
-
-                        @if($product->status === 'active')
-
-                            <span class="badge badge-success">
-                                Active
-                            </span>
-
-                        @else
-
-                            <span class="badge badge-warning">
-                                Inactive
-                            </span>
-
-                        @endif
-
-                    </td>
-
-
-                    {{-- Featured --}}
-                    <td>
-
-                        @if($product->is_featured)
-
-                            <span class="badge badge-featured">
-                                ★ Featured
-                            </span>
-
-                        @else
-
-                            <span style="color:#9ca3af;">
-                                —
-                            </span>
-
-                        @endif
-
-                    </td>
-
-
-                    {{-- Actions --}}
-                    <td class="actions">
-
-                        <div class="action-group">
-
-                            <a
-                                href="{{ route(
-                                    'products.edit',
-                                    $product->id
-                                ) }}"
-                                class="action-btn edit-btn"
-                            >
-                                Edit
-                            </a>
-
-
-                            <form
-                                action="{{ route(
-                                    'products.destroy',
-                                    $product->id
-                                ) }}"
-                                method="POST"
-                                style="display:inline"
-                                onsubmit="return confirm('Are you sure you want to delete this product?');"
-                            >
-
-                                @csrf
-
-                                @method('DELETE')
-
-
-                                <button
-                                    type="submit"
-                                    class="action-btn delete-btn"
-                                >
-                                    Delete
-                                </button>
-
-                            </form>
-
-                        </div>
-
-                    </td>
-
-                </tr>
-
-
-            @empty
-
-                <tr>
-
-                    <td
-                        colspan="8"
-                        class="empty-state"
-                    >
-
-                        <div class="empty-icon">
-                            📦
-                        </div>
-
-                        <strong>
-                            No products found
-                        </strong>
-
-                        <span>
-                            Try changing your search or filter criteria.
-                        </span>
-
-                    </td>
-
-                </tr>
-
-            @endforelse
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-
-    {{-- Pagination --}}
-    @if($products->hasPages())
-
-        <div class="pagination-wrapper">
-
-            <div class="pagination-info">
-
-                Page
-                {{ $products->currentPage() }}
-                of
-                {{ $products->lastPage() }}
-
-            </div>
-
-
-            <div class="pagination">
-
-                {{ $products->links() }}
-
-            </div>
-
-        </div>
-
-    @endif
-
-</div>
-
-</div>
+</script>
 
 @endsection
