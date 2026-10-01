@@ -83,6 +83,19 @@
             color: #111827;
         }
 
+        .top-navigation h1, .top-navigation h2, .top-navigation h3, .top-navigation h4,
+        .products-header h1, .products-header h2, .products-header h3, .products-header h4,
+        .create-header h1, .create-header h2, .create-header h3, .create-header h4,
+        .edit-header h1, .edit-header h2, .edit-header h3, .edit-header h4,
+        .studio-header h1, .studio-header h2, .studio-header h3, .studio-header h4,
+        .matrix-header h1, .matrix-header h2, .matrix-header h3, .matrix-header h4 {
+            color: #ffffff !important;
+        }
+
+        .products-header p, .create-header p, .edit-header p, .studio-header p, .matrix-header p {
+            color: #e2e8f0 !important;
+        }
+
         h1 {
             font-size: 30px;
             font-weight: 800;
@@ -118,7 +131,7 @@
             background:
                 linear-gradient(
                     135deg,
-                    #111827,
+                    #0f172a,
                     #1e293b
                 );
 
@@ -129,7 +142,7 @@
         }
 
         .brand {
-            color: #ffffff;
+            color: #ffffff !important;
             text-decoration: none;
 
             font-size: 18px;
@@ -137,10 +150,10 @@
         }
 
         .brand-subtitle {
-            color: #cbd5e1;
+            color: #cbd5e1 !important;
 
-            font-size: 12px;
-            font-weight: 500;
+            font-size: 13px;
+            font-weight: 600;
 
             margin-left: 8px;
         }
