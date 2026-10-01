@@ -44,11 +44,12 @@
         margin: 0 0 6px;
         font-size: 28px;
         font-weight: 700;
+        color: #ffffff !important;
     }
 
     .products-header p {
         margin: 0;
-        color: #d1d5db;
+        color: #cbd5e1 !important;
         font-size: 14px;
     }
 
@@ -111,7 +112,7 @@
     .stat-card {
         background: #fff;
 
-        border: 1px solid #e5e7eb;
+        border: 1px solid #cbd5e1;
 
         border-radius: 15px;
 
@@ -122,20 +123,22 @@
     }
 
     .stat-label {
-        color: #6b7280;
-        font-size: 12px;
+        color: #334155 !important;
+        font-size: 13px;
+        font-weight: 700;
         margin-bottom: 7px;
     }
 
     .stat-value {
-        color: #111827;
-        font-size: 22px;
+        color: #0f172a !important;
+        font-size: 24px;
         font-weight: 800;
     }
 
     .stat-small {
-        color: #9ca3af;
-        font-size: 11px;
+        color: #64748b !important;
+        font-size: 12px;
+        font-weight: 500;
         margin-top: 4px;
     }
 
@@ -667,12 +670,32 @@
 
         </div>
 
-        <a
-            href="{{ route('products.create') }}"
-            class="add-product-btn"
-        >
-            + Add Product
-        </a>
+        <div class="d-flex gap-2 flex-wrap">
+
+            <a
+                href="{{ route('products.formStudio') }}"
+                class="add-product-btn"
+                style="background: #e0e7ff; color: #3730a3;"
+            >
+                📝 Form Studio
+            </a>
+
+            <a
+                href="{{ route('products.variantMatrix') }}"
+                class="add-product-btn"
+                style="background: #fae8ff; color: #86198f;"
+            >
+                📁 Image & Matrix Studio
+            </a>
+
+            <a
+                href="{{ route('products.create') }}"
+                class="add-product-btn"
+            >
+                + Add Product
+            </a>
+
+        </div>
 
     </div>
 

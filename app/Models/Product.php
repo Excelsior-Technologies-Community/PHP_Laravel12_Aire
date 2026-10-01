@@ -8,18 +8,29 @@ class Product extends Model
 {
     protected $fillable = [
         'name',
+        'slug',
+        'sku',
         'price',
         'category',
         'stock',
         'status',
         'is_featured',
         'description',
+        'custom_fields',
+        'images',
+        'cover_image',
+        'variants',
+        'validation_rules',
     ];
 
     protected $casts = [
         'price' => 'integer',
         'stock' => 'integer',
         'is_featured' => 'boolean',
+        'custom_fields' => 'array',
+        'images' => 'array',
+        'variants' => 'array',
+        'validation_rules' => 'array',
     ];
 
     /**
@@ -36,7 +47,7 @@ class Product extends Model
     public function getIsLowStockAttribute()
     {
         return $this->stock > 0 &&
-               $this->stock <= 5;
+            $this->stock <= 5;
     }
 
     /**
