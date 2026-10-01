@@ -46,6 +46,40 @@ Route::post(
 
 /*
 |--------------------------------------------------------------------------
+| Form Studio & Dynamic Custom Fields Configurator
+|--------------------------------------------------------------------------
+*/
+
+Route::get(
+    '/products/form-studio',
+    [ProductController::class, 'formStudio']
+)->name('products.formStudio');
+
+Route::post(
+    '/products/form-studio/save',
+    [ProductController::class, 'saveSchema']
+)->name('products.saveSchema');
+
+
+/*
+|--------------------------------------------------------------------------
+| Image Gallery Studio & Product Variant Matrix
+|--------------------------------------------------------------------------
+*/
+
+Route::get(
+    '/products/variant-matrix',
+    [ProductController::class, 'variantMatrix']
+)->name('products.variantMatrix');
+
+Route::post(
+    '/products/variant-matrix/generate',
+    [ProductController::class, 'generateVariants']
+)->name('products.generateVariants');
+
+
+/*
+|--------------------------------------------------------------------------
 | Duplicate Product
 |--------------------------------------------------------------------------
 */
